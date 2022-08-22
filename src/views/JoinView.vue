@@ -3,17 +3,25 @@
         <input class="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
             type="text" v-model="steemid" :placeholder="$t('missing.enter_steem_id')" @change="join" />
     </div>
+    <FollowCard />
+
+
+
 </template>
 <script>
 import { api } from 'steem';
+import FollowCard from '@/components/FollowCard.vue';
 
 export default {
+    components: {
+        FollowCard
+    },
     data() {
         return {
             steemid: '',
             error: '',
             followed: false,
-            authorized:false,
+            authorized: false,
         }
     },
     methods: {
@@ -34,11 +42,11 @@ export default {
                     if (!err) {
                         for (let ac of result) {
                             let account_auths = ac.posting.account_auths;
-                             for (let app of account_auths) {
+                            for (let app of account_auths) {
                                 if (app[0] === this.$store.state.account) {
                                     resolve(true);
                                 }
-                             }
+                            }
                         }
                         resolve(false);
                     }
