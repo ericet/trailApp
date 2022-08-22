@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Trail Members",
+    "daily": "Daily Votes List",
+    "missing": "Report Missing Votes"
+  },
+  "summary":{
+    "total_steem_power":"Total Steem Power",
+    "total_members":"Total Members",
+    "voting_power":"Voting Power",
+    "multipier":"Multiper(First 100)"
+  },
+  "submit":"Submit",
+  "post_link":"Post Link"
+}

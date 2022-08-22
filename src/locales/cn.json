@@ -1,0 +1,15 @@
+{
+    "nav": {
+      "home": "跟赞团",
+      "daily": "每日点赞名单",
+      "missing": "申请补赞"
+    },
+    "summary":{
+      "total_steem_power":"SP总量",
+      "total_members":"团员总数",
+      "voting_power":"点赞能量",
+      "multipier":"点赞倍数"
+    },
+    "submit":"提交",
+    "post_link":"文章链接"
+  }
