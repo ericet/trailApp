@@ -2,7 +2,8 @@
   "nav": {
     "home": "Trail Members",
     "daily": "Daily Votes List",
-    "missing": "Report Missing Votes"
+    "missing": "Report Missing Votes",
+    "join":"Join"
   },
   "summary":{
     "total_steem_power":"Total Steem Power",
@@ -12,7 +13,8 @@
   },
   "missing":{
     "no_post_found":"No qualified post found!",
-    "enter_steem_id":"Enter Your STEEM ID"
+    "enter_steem_id":"Enter Your STEEM ID",
+    "invalid_account":"Invalid Account!"
   },
   "submit":"Submit",
   "post_link":"Post Link"

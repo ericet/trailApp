@@ -2,7 +2,8 @@
     "nav": {
       "home": "跟赞团",
       "daily": "每日点赞名单",
-      "missing": "申请补赞"
+      "missing": "申请补赞",
+      "join":"加入"
     },
     "summary":{
       "total_steem_power":"SP总量",
@@ -12,7 +13,8 @@
     },
     "missing":{
       "no_post_found":"没有找到符合补赞要求的帖子!",
-      "enter_steem_id":"输入你的STEEM ID"
+      "enter_steem_id":"输入你的STEEM ID",
+      "invalid_account":"无效账号!"
     },
     "submit":"提交",
     "post_link":"文章链接"

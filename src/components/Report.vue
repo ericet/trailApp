@@ -131,6 +131,8 @@ export default {
                     this.error = this.$t('missing.no_post_found');
                 }
                 this.selected = this.posts.length ? this.posts[0].permlink + '?' + this.posts[0].created + 'Z' : ''
+            }else{
+                this.error = this.$t("missing.invalid_account");
             }
         },
         getEligible(account, date) {
