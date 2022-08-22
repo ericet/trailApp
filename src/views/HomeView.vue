@@ -39,12 +39,12 @@
                 <a :href="'https://steem.buzz/@' + member.name" target="_blank">
                   <img
                     class="w-10 h-10 object-cover rounded-full"
-                    alt="User avatar"
                     v-bind:src="
                       'https://steemitimages.com/u/' +
                       member.name +
                       '/avatar/small'
                     "
+                    onerror="this.src='https://icon-library.com/images/default-user-icon/default-user-icon-20.jpg'"
                   />
                 </a>
               </div>

@@ -28,11 +28,12 @@
     </div>
     <div class="mx-auto max-w-4xl w-1/2 mb-2 relative text-gray-700">
         <input class="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-            type="text" v-model="steemid" placeholder="Enter Your STEEM ID" @change="search" />
+            type="text" v-model="steemid" :placeholder="$t('missing.enter_steem_id')" @change="search" />
     </div>
     <div class="mx-auto max-w-4xl w-1/2 mb-3 relative text-gray-700">
         <select v-model="selected"
-            class="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline">
+            class="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline disabled:cursor-not-allowed"
+            :disabled="posts.length == 0">
             <option v-for="(post, index) in posts" :key="index" :value="post.permlink + '?' + post.created + 'Z'">
                 【{{ formatDate(post.created + "Z") }}】{{ post.title }}</option>
         </select>
@@ -40,8 +41,11 @@
     </div>
     <div class="flex mb-8">
         <div class="m-auto">
-            <button @click="submit"
-                class="h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800">{{ $t("submit") }}</button>
+            <button type="button"
+                class="h-10 px-5 text-indigo-100 bg-indigo-700 rounded disabled:cursor-not-allowed rounded-full focus:outline-none transition-colors duration-150 disabled:opacity-75"
+                :disabled="posts.length == 0" @click="submit">
+                {{ $t("submit") }}
+            </button>
         </div>
     </div>
 </template>
@@ -75,9 +79,9 @@ export default {
         isValidAccount(account) {
             return new Promise((resolve, reject) => {
                 api.lookupAccountNames([account], (err, result) => {
-                    if(!err){
-                    result[0] === null ? resolve(false) : resolve(true);
-                    }else{
+                    if (!err) {
+                        result[0] === null ? resolve(false) : resolve(true);
+                    } else {
                         reject(err);
                     }
                 });
@@ -119,21 +123,25 @@ export default {
             });
         },
         async search() {
+            this.close();
             let isValid = await this.isValidAccount(this.steemid);
             if (isValid) {
                 this.posts = await this.getPosts(this.steemid);
+                if (this.posts.length == 0) {
+                    this.error = this.$t('missing.no_post_found');
+                }
                 this.selected = this.posts.length ? this.posts[0].permlink + '?' + this.posts[0].created + 'Z' : ''
             }
         },
         getEligible(account, date) {
             return new Promise((resolve) => {
                 const url = `${this.$store.state.api}/getList?account=${account}&date=${date}`;
-                axios.get(url).then( (response)=> {
+                axios.get(url).then((response) => {
                     if (response.status == 200) {
                         let data = response.data;
                         for (let d of data) {
                             if (d.permlink === null) {
-                            resolve(d);
+                                resolve(d);
                             }
                         }
                         resolve(null);
@@ -154,7 +162,6 @@ export default {
                 }).then(res => {
                     return res.json();
                 }).then((data) => {
-                    console.log(data)
                     if (data.error === 'exist') {
                         this.error = data.msg;
                     } else {

@@ -10,6 +10,10 @@
       "voting_power":"点赞能量",
       "multipier":"点赞倍数"
     },
+    "missing":{
+      "no_post_found":"没有找到符合补赞要求的帖子!",
+      "enter_steem_id":"输入你的STEEM ID"
+    },
     "submit":"提交",
     "post_link":"文章链接"
   }

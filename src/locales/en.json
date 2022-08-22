@@ -10,6 +10,11 @@
     "voting_power":"Voting Power",
     "multipier":"Multiper(First 100)"
   },
+  "missing":{
+    "no_post_found":"No qualified post found!",
+    "enter_steem_id":"Enter Your STEEM ID"
+  },
   "submit":"Submit",
   "post_link":"Post Link"
+
 }

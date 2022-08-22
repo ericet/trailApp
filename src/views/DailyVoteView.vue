@@ -58,7 +58,6 @@
                 <a :href="'https://steem.buzz/@' + member.name" target="_blank">
                   <img
                     class="w-10 h-10 object-cover rounded-full"
-                    alt="User avatar"
                     v-bind:src="
                       'https://steemitimages.com/u/' +
                       member.name +
