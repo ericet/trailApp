@@ -1,9 +1,3 @@
-<script>
-export default {
-	props: ['showModal', 'isOpen'],
-};
-</script>
-
 <template>
 	<!-- Header links -->
 	<div
@@ -38,4 +32,20 @@ export default {
 	</div>
 </template>
 
-<style lang="scss" scoped></style>
+<script>
+export default {
+	props: ['showModal', 'isOpen'],
+	data() {
+		return {
+			activeMenu:''
+		}
+	},
+};
+</script>
+
+<style lang="css" scoped>
+	.active-link{
+		color: rgb(79 70 229);
+		border-bottom: 2px solid rgb(79 70 229)
+	}
+</style>
