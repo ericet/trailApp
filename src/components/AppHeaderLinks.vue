@@ -6,25 +6,25 @@
 	>
 		<router-link
 			to="/"
-			class="font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
+			class="duration-200 font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
 			aria-label="Home"
 			>{{ $t("nav.home") }}</router-link
 		>
 		<router-link
 			to="/daily"
-			class="font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-ternary-light hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
+			class="duration-200 font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-ternary-light hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
 			aria-label="Daily Votes"
 			>{{ $t("nav.daily") }}</router-link
 		>
 		<router-link
 			to="/missing"
-			class="font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-ternary-light hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
+			class="duration-200 font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-ternary-light hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
 			aria-label="Missing Votes"
 			>{{ $t("nav.missing") }}</router-link
 		>
 		<router-link
 			to="/join"
-			class="font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-ternary-light hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
+			class="duration-200 font-general-medium block text-left text-lg font-medium text-primary-dark dark:text-ternary-light hover:text-indigo-600 dark:hover:text-indigo-300  sm:mx-4 mb-2 sm:py-2 "
 			aria-label="Join"
 			>{{ $t("nav.join") }}</router-link
 		>
@@ -46,6 +46,6 @@ export default {
 <style lang="css" scoped>
 	.active-link{
 		color: rgb(79 70 229);
-		border-bottom: 2px solid rgb(79 70 229)
+		border-bottom: 3px solid rgb(79 70 229);
 	}
 </style>
