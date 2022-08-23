@@ -11,6 +11,14 @@ module.exports = defineConfig({
         chunks: "all",
       },
     },
+    module: {
+      rules: [
+        {
+          test: /\.md$/i,
+          loader: "raw-loader",
+        },
+      ],
+    },
   },
 
   pluginOptions: {
