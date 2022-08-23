@@ -3,7 +3,9 @@ const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
-
+  publicPath: process.env.NODE_ENV === 'production'
+    ? './'
+    : '/',
   configureWebpack: {
     plugins: [new NodePolyfillPlugin()],
     optimization: {
