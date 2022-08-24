@@ -42,6 +42,28 @@ const routes = [
     meta:{
       title: 'STEEM Trail - Join'
     }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
+    meta:{
+      title: 'STEEM Trail - Login'
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserDashboard.vue'),
+    meta:{
+      title: 'STEEM Trail - Dashboard'
+    }
   }
 ]
 
