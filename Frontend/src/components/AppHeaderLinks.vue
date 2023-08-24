@@ -28,6 +28,7 @@
 			aria-label="Join"
 			>{{ $t("nav.join") }}</router-link
 		>
+		
 
 	</div>
 </template>

@@ -3,7 +3,8 @@
     "home": "Trail Members",
     "daily": "Daily Votes List",
     "missing": "Report Missing Votes",
-    "join":"Join"
+    "join":"Join",
+    "login":"Login"
   },
   "summary":{
     "total_steem_power":"Total Steem Power",

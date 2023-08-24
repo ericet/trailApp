@@ -1,14 +1,20 @@
 <template>
   <div class="min-h-screen py-5">
     <div class="overflow-x-auto w-full">
-      <TrailSummary :trailMembers="trailMembers" :trailVp="trailVp" :multipier="multipier"/>
+      <TrailSummary
+        :trailMembers="trailMembers"
+        :trailVp="trailVp"
+        :multipier="multipier"
+      />
       <table
         class="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden"
       >
         <thead class="bg-gray-900">
           <tr class="text-white text-left">
             <th class="font-semibold text-sm uppercase px-6 py-4">#</th>
-            <th class="font-semibold text-sm uppercase px-6 py-4"> <i data-feather="user" class="m-1"></i></th>
+            <th class="font-semibold text-sm uppercase px-6 py-4">
+              <i data-feather="user" class="m-1"></i>
+            </th>
             <th
               @click="sort('name')"
               class="font-semibold text-sm uppercase px-6 py-4"
@@ -75,7 +81,18 @@ import feather from 'feather-icons';
 
 import TrailSummary from '../components/TrailSummary.vue';
 export default {
-    mounted() {
+  beforeRouteEnter(to, from, next) {
+    if (localStorage.getItem('shouldRefresh')) {
+      localStorage.removeItem('shouldRefresh'); // Remove the flag
+      next((vm) => {
+        // Refresh the page
+        location.reload();
+      });
+    } else {
+      next();
+    }
+  },
+  mounted() {
     feather.replace();
     this.setup();
   },
@@ -234,7 +251,7 @@ export default {
         axios
           .get(`${this.$store.state.api}/getSettings`)
           .then((res) => {
-            resolve(10+res.data[0].current_multipier);
+            resolve(10 + res.data[0].current_multipier);
           })
           .catch((err) => {
             reject(err);
