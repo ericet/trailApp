@@ -1,4 +1,4 @@
-# Trail App
+# Trail App Frontend
 
 ## Project setup
 ```
