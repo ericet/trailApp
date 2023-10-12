@@ -24,7 +24,7 @@
           <tr v-for="member in sortedMembers" :key="member.account" :class="member.hasVoted ? 'bg-teal-100' : ''">
             <td class="px-6 py-4">
               <div class="inline-flex w-10 h-10">
-                <a :href="'https://steem.buzz/@' + member.account" target="_blank">
+                <a :href="'https://steemcn.xyz/@' + member.account" target="_blank">
                   <img class="w-10 h-10 object-cover rounded-full" alt="User avatar" v-bind:src="
                     'https://steemitimages.com/u/' +
                     member.account +
@@ -46,7 +46,7 @@
 
             <td class="px-6 py-4 text-center">
               <a :href="
-                'https://steem.buzz/@' + member.account + '/' + member.permlink
+                'https://steemcn.xyz/@' + member.account + '/' + member.permlink
               " class="text-sky-600">Link</a>
             </td>
           </tr>

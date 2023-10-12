@@ -42,7 +42,7 @@
             </td>
             <td class="px-6 py-4">
               <div class="inline-flex w-10 h-10">
-                <a :href="'https://steem.buzz/@' + member.name" target="_blank">
+                <a :href="'https://steemcn.xyz/@' + member.name" target="_blank">
                   <img
                     class="w-10 h-10 object-cover rounded-full"
                     v-bind:src="

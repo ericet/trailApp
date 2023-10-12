@@ -55,7 +55,7 @@
           >
             <td class="px-6 py-4">
               <div class="inline-flex w-10 h-10">
-                <a :href="'https://steem.buzz/@' + member.name" target="_blank">
+                <a :href="'https://steemcn.xyz/@' + member.name" target="_blank">
                   <img
                     class="w-10 h-10 object-cover rounded-full"
                     v-bind:src="
@@ -86,7 +86,7 @@
             <td v-if="member.hasVoted" class="px-6 py-4 text-center">
               <a
                 :href="
-                  'https://steem.buzz/@' + member.name + '/' + member.permlink
+                  'https://steemcn.xyz/@' + member.name + '/' + member.permlink
                 "
                 class="text-sky-600"
                 >Link</a
