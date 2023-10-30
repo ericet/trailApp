@@ -1,10 +1,23 @@
 version: '3'
 services:
-  trailapp-frontend:
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
+    image: frontend-image
+    container_name: frontend-container
     ports:
       - "80:80"
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-container
     volumes:
-      - ./path/to/your/app/code:/usr/src/app/TRAILAPP/Frontend
+      - frontend:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+
+volumes:
+  frontend:
