@@ -1,0 +1,10 @@
+version: '3'
+services:
+  trailapp-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./path/to/your/app/code:/usr/src/app/TRAILAPP/Frontend
