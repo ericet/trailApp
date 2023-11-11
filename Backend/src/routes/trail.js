@@ -43,7 +43,7 @@ router.post("/report", async function (req, res, next) {
     try {
         const userInput = req.body;
         let isReported = await trail.checkIfReported(userInput.account, userInput.permlink);
-        if (isReported) {
+        if (!isReported) {
             let isEligible = await trail.checkIfEligibleToReport(userInput.date, userInput.account);
             if (isEligible) {
                 let result = await trail.report(userInput);
