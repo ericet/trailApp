@@ -1,5 +1,5 @@
 const db = require("./db");
-const { emptyOrRows, formatDateTime, setStartDate, setEndDate, getRowsSize } = require("../helpers");
+const { emptyOrRows, formatDateTime, setStartDate, setEndDate, getRowsSize, setStartMonthDate, setEndMonthDate } = require("../helpers");
 
 //get trail settings
 async function getSettings () {
@@ -76,6 +76,15 @@ async function report (userInput) {
     return false;
 }
 
+async function getAccountUpvotes(account, year, month) {
+    const startDate = setStartMonthDate(year, month);
+    const endDate = setEndMonthDate(year, month);
+    const rows = await db.query(
+        `SELECT * FROM upvotes WHERE voter = ? AND date_time BETWEEN ? AND ?`,
+        [account, formatDateTime(startDate), formatDateTime(endDate)]
+    );
+    return emptyOrRows(rows);
+}
 
 module.exports = {
     getSettings,
@@ -86,5 +95,6 @@ module.exports = {
     getAllPending,
     checkIfEligibleToReport,
     report,
-    checkIfReported
+    checkIfReported,
+    getAccountUpvotes
 };

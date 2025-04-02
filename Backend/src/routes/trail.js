@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const trail = require("../services/trail");
+const { verifyToken } = require("../middleware/authMiddleware");
 
 router.get("/getSettings", async function (req, res, next) {
     try {
@@ -19,13 +20,26 @@ router.get("/getList", async function (req, res, next) {
             res.json(await trail.getAllVoteList());
         } else if (!date && account) {
             res.json(await trail.getVoteListForAccount(account))
-        } else if(date && !account){
+        } else if (date && !account) {
             res.json(await trail.getAllVoteListWithinStartEndDate(date));
-        }else if(date && account){
-            res.json(await trail.getVoteListForAccountWithinStartEndDate(date,account));
+        } else if (date && account) {
+            res.json(await trail.getVoteListForAccountWithinStartEndDate(date, account));
         }
     } catch (err) {
         console.error(`Error while getting all votes list `, err.message);
+        next(err);
+    }
+});
+
+router.get("/getUpvotes", verifyToken, async function (req, res, next) {
+    try {
+        const account = req.query.account;
+        const year = parseInt(req.query.year);
+        const month = parseInt(req.query.month);
+        const upvotes = await trail.getAccountUpvotes(account, year, month);
+        res.json(upvotes);
+    } catch (err) {
+        console.error(`Error while getting upvotes`, err.message);
         next(err);
     }
 });
@@ -69,8 +83,5 @@ router.post("/report", async function (req, res, next) {
     }
 
 });
-
-
-
 
 module.exports = router;

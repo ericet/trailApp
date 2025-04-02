@@ -41,10 +41,26 @@ function formatDateTime (datetime) {
     return year + '-' + month + '-' + day + ' ' + time;
 }
 
+function setStartMonthDate (year, month) {
+    // month is 1-based (1-12)
+    // Create date in UTC to avoid timezone issues
+    const startDate = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0, 0));
+    return startDate;
+}
+
+function setEndMonthDate (year, month) {
+    // month is 1-based (1-12)
+    // Create date in UTC to avoid timezone issues
+    const endDate = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999));
+    return endDate;
+}
+
 module.exports = {
     emptyOrRows,
     setStartDate,
     setEndDate,
     formatDateTime,
-    getRowsSize
+    getRowsSize,
+    setStartMonthDate,
+    setEndMonthDate
 };
