@@ -1,109 +1,82 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from '../store'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView,
-    meta:{
+    meta: {
       title: 'STEEM Trail - Home'
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginView.vue'),
+    meta: {
+      title: 'STEEM Trail - Login'
     }
   },
   {
     path: '/daily',
     name: 'daily',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/DailyVoteView.vue'),
-    meta:{
+    component: () => import('../views/DailyVoteView.vue'),
+    meta: {
       title: 'STEEM Trail - Daily Votes List'
     }
   },
   {
     path: '/missing',
     name: 'missing',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/MissingVoteView.vue'),
-    meta:{
-      title: 'STEEM Trail - Report Missing Votes'
+    component: () => import('../views/MissingVoteView.vue'),
+    meta: {
+      title: 'STEEM Trail - Missing Votes'
     }
   },
   {
     path: '/join',
     name: 'join',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/JoinView.vue'),
-    meta:{
+    component: () => import('../views/JoinView.vue'),
+    meta: {
       title: 'STEEM Trail - Join'
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/DashboardView.vue'),
+    meta: {
+      title: 'STEEM Trail - Dashboard',
+      requiresAuth: true
     }
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-  linkActiveClass: "active-link", // active class for non-exact links.
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+// Navigation guard to check authentication and update page title
+router.beforeEach((to, from, next) => {
+  // Update document title
+  document.title = to.meta.title || 'STEEM Trail'
+  
+  // Check if the route requires authentication
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const loggedIn = store.state.user?.username
+
+  if (requiresAuth && !loggedIn) {
+    // Redirect to login page with return url
+    return next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+  }
+
+  next()
 })
 
 export default router
-// This callback runs before every route change, including on page load.
-router.beforeEach((to, from, next) => {
-	// This goes through the matched routes from last to first, finding the closest route with a title.
-	// e.g., if we have `/some/deep/nested/route` and `/some`, `/deep`, and `/nested` have titles,
-	// `/nested`'s will be chosen.
-	const nearestWithTitle = to.matched
-		.slice()
-		.reverse()
-		.find((r) => r.meta && r.meta.title);
-
-	// Find the nearest route element with meta tags.
-	const nearestWithMeta = to.matched
-		.slice()
-		.reverse()
-		.find((r) => r.meta && r.meta.metaTags);
-
-	const previousNearestWithMeta = from.matched
-		.slice()
-		.reverse()
-		.find((r) => r.meta && r.meta.metaTags);
-
-	// If a route with a title was found, set the document (page) title to that value.
-	if (nearestWithTitle) {
-		document.title = nearestWithTitle.meta.title;
-	} else if (previousNearestWithMeta) {
-		document.title = previousNearestWithMeta.meta.title;
-	}
-
-	// Remove any stale meta tags from the document using the key attribute we set below.
-	Array.from(
-		document.querySelectorAll('[data-vue-router-controlled]')
-	).map((el) => el.parentNode.removeChild(el));
-
-	// Skip rendering meta tags if there are none.
-	if (!nearestWithMeta) return next();
-
-	// Turn the meta tag definitions into actual elements in the head.
-	nearestWithMeta.meta.metaTags
-		.map((tagDef) => {
-			const tag = document.createElement('meta');
-
-			Object.keys(tagDef).forEach((key) => {
-				tag.setAttribute(key, tagDef[key]);
-			});
-
-			// We use this to track which meta tags we create so we don't interfere with other ones.
-			tag.setAttribute('data-vue-router-controlled', '');
-
-			return tag;
-		})
-		// Add the meta tags to the document head.
-		.forEach((tag) => document.head.appendChild(tag));
-
-	next();
-});

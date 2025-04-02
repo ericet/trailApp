@@ -3,6 +3,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 import feather from 'feather-icons';
 import AppHeaderLinks from './AppHeaderLinks.vue';
 import LocaleSwitcher from './LocaleSwitcher.vue';
+import { mapGetters } from 'vuex';
 
 export default {
 	components: {
@@ -17,6 +18,10 @@ export default {
 		};
 	},
 
+	computed: {
+		...mapGetters(['isAuthenticated', 'currentUser'])
+	},
+
 	created() {
 		this.theme = localStorage.getItem('theme') || 'light';
 	},
@@ -27,6 +32,12 @@ export default {
 	methods: {
 		updateTheme(theme) {
 			this.theme = theme;
+		},
+		handleLogout() {
+			this.$store.dispatch('logout');
+			if (this.$route.path !== '/') {
+				this.$router.push('/');
+			}
 		}
 	},
 	updated() {
@@ -67,30 +78,58 @@ export default {
 								v-if="isOpen"
 								fill-rule="evenodd"
 								d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
-								clip-rule="evenodd"
-							></path>
+							/>
 							<path
 								v-if="!isOpen"
 								fill-rule="evenodd"
 								d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-							></path>
+							/>
 						</svg>
 					</button>
 				</div>
 			</div>
+
 			<!-- Header links -->
 			<AppHeaderLinks :isOpen="isOpen" />
+
 			<!-- Header right section buttons -->
 			<div
-				class="hidden sm:flex justify-center items-center flex-col md:flex-row"
+				class="hidden sm:flex justify-between items-center flex-col md:flex-row"
 			>
-			<LocaleSwitcher />
-				<!-- Theme switcher large screen -->
+				<LocaleSwitcher class="ml-8" />
 				<theme-switcher
 					:theme="theme"
 					@themeChanged="updateTheme"
-					class="ml-2 bg-primary-light dark:bg-ternary-dark px-3 py-2 shadow-sm rounded-xl cursor-pointer"
+					class="ml-8 bg-primary-light dark:bg-ternary-dark px-3 py-2 shadow-sm rounded-xl cursor-pointer"
 				/>
+				
+				<!-- Login/Logout buttons -->
+				<div v-if="!isAuthenticated" class="ml-8">
+					<router-link
+						to="/login"
+						class="font-general-medium bg-blue-500 hover:bg-blue-600 text-white shadow-sm rounded-md px-5 py-2.5 duration-500"
+						aria-label="Login"
+					>
+						Login
+					</router-link>
+				</div>
+				<div v-else class="ml-8 flex items-center">
+					<router-link
+						to="/dashboard"
+						class="mr-4 font-general-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+						aria-label="Dashboard"
+					>
+						Dashboard
+					</router-link>
+					<span class="mr-4 text-gray-600 dark:text-gray-400">{{ currentUser.username }}</span>
+					<button
+						@click="handleLogout"
+						class="font-general-medium bg-red-500 hover:bg-red-600 text-white shadow-sm rounded-md px-5 py-2.5 duration-500"
+						aria-label="Logout"
+					>
+						Logout
+					</button>
+				</div>
 			</div>
 		</div>
 	</nav>
