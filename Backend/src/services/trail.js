@@ -86,6 +86,15 @@ async function getAccountUpvotes(account, year, month) {
     return emptyOrRows(rows);
 }
 
+async function getScore(account) {
+    const rows = await db.query(
+        `SELECT * FROM upvote_list WHERE account = ? ORDER BY date_time DESC LIMIT 1`,
+        [account]
+    );
+    const result = emptyOrRows(rows);
+    return result[0];
+}
+
 module.exports = {
     getSettings,
     getAllVoteList,
@@ -96,5 +105,6 @@ module.exports = {
     checkIfEligibleToReport,
     report,
     checkIfReported,
-    getAccountUpvotes
+    getAccountUpvotes,
+    getScore
 };

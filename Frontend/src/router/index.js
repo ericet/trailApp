@@ -4,6 +4,15 @@ import store from '../store'
 
 const routes = [
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/DashboardView.vue'),
+    meta: {
+      title: 'STEEM Trail - Dashboard',
+      requiresAuth: true
+    }
+  },
+  {
     path: '/',
     name: 'home',
     component: HomeView,
@@ -42,16 +51,8 @@ const routes = [
     meta: {
       title: 'STEEM Trail - Join'
     }
-  },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import('../views/DashboardView.vue'),
-    meta: {
-      title: 'STEEM Trail - Dashboard',
-      requiresAuth: true
-    }
   }
+  
 ]
 
 const router = createRouter({

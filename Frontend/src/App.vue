@@ -8,11 +8,11 @@
               <router-link to="/" class="text-xl font-bold text-gray-800 dark:text-white">STEEM Trail</router-link>
             </div>
             <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <router-link v-if="isAuthenticated" to="/dashboard" class="nav-link" active-class="active-nav-link">Dashboard</router-link>
               <router-link to="/" class="nav-link" active-class="active-nav-link">Home</router-link>
               <router-link to="/daily" class="nav-link" active-class="active-nav-link">Daily Votes</router-link>
               <router-link to="/missing" class="nav-link" active-class="active-nav-link">Missing Votes</router-link>
               <router-link to="/join" class="nav-link" active-class="active-nav-link">FAQ</router-link>
-              <router-link v-if="isAuthenticated" to="/dashboard" class="nav-link" active-class="active-nav-link">Dashboard</router-link>
             </div>
           </div>
           <div class="flex items-center">

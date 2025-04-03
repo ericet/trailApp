@@ -101,8 +101,8 @@ export default {
                   token: loginResponse.data.token
                 });
                 
-                // Redirect to home page or previous page
-                const redirect = this.$route.query.redirect || '/'
+                // Redirect to dashboard after successful login
+                const redirect = this.$route.query.redirect || { name: 'dashboard' }
                 this.$router.push(redirect)
               } catch (err) {
                 this.error = 'Server error during login';

@@ -53,6 +53,17 @@ router.get("/getPendings", async function (req, res, next) {
     }
 });
 
+router.get("/getScore", async function (req, res, next) {
+    try {
+        const account = req.query.account;
+        const score = await trail.getScore(account);
+        res.json(score);
+    } catch (err) {
+        console.error(`Error while getting score`, err.message);
+        next(err);
+    }
+});
+
 router.post("/report", async function (req, res, next) {
     try {
         const userInput = req.body;
