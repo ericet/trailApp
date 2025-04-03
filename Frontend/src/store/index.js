@@ -10,7 +10,8 @@ export default createStore({
   },
   getters: {
     isAuthenticated: state => !!state.user,
-    currentUser: state => state.user
+    currentUser: state => state.user,
+    isAdmin: state => state.user?.isAdmin || false
   },
   mutations: {
     setUser(state, userData) {

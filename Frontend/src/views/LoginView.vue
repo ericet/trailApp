@@ -98,7 +98,8 @@ export default {
                 // Store the user data and token in Vuex store
                 this.$store.commit('setUser', {
                   username: this.username,
-                  token: loginResponse.data.token
+                  token: loginResponse.data.token,
+                  isAdmin: loginResponse.data.isAdmin
                 });
                 
                 // Redirect to dashboard after successful login

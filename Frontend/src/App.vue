@@ -9,6 +9,7 @@
             </div>
             <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
               <router-link v-if="isAuthenticated" to="/dashboard" class="nav-link" active-class="active-nav-link">Dashboard</router-link>
+              <router-link v-if="isAdmin" to="/admin" class="nav-link" active-class="active-nav-link">Admin</router-link>
               <router-link to="/" class="nav-link" active-class="active-nav-link">Home</router-link>
               <router-link to="/daily" class="nav-link" active-class="active-nav-link">Daily Votes</router-link>
               <router-link to="/missing" class="nav-link" active-class="active-nav-link">Missing Votes</router-link>
@@ -52,7 +53,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -66,6 +67,7 @@ export default {
     ...mapState({
       username: state => state.user?.username
     }),
+    ...mapGetters(['isAdmin']),
     isAuthenticated() {
       return !!this.username
     }

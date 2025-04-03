@@ -51,8 +51,17 @@ const routes = [
     meta: {
       title: 'STEEM Trail - Join'
     }
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/AdminView.vue'),
+    meta: {
+      title: 'STEEM Trail - Admin',
+      requiresAuth: true,
+      requiresAdmin: true
+    }
   }
-  
 ]
 
 const router = createRouter({
