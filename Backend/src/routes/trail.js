@@ -33,7 +33,7 @@ router.get("/getList", async function (req, res, next) {
 
 router.get("/getUpvotes", verifyToken, async function (req, res, next) {
     try {
-        const account = req.query.account;
+        const account = req.user.sub; // Get username from JWT sub claim
         const year = parseInt(req.query.year);
         const month = parseInt(req.query.month);
         const upvotes = await trail.getAccountUpvotes(account, year, month);
