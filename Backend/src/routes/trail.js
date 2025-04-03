@@ -1,13 +1,61 @@
 const express = require("express");
 const router = express.Router();
 const trail = require("../services/trail");
-const { verifyToken } = require("../middleware/authMiddleware");
+const { verifyToken, verifyAdmin } = require("../middleware/authMiddleware");
+const logger = require("../utils/logger");
+
+router.post("/addToPending", verifyToken, verifyAdmin, async function (req, res, next) {
+    const admin = req.user.sub;
+    const { account, permlink, votingWeight } = req.body;
+
+    logger.info('Adding post to pending votes', {
+        user: admin,
+        action: 'addToPending',
+        data: { account, permlink, votingWeight }
+    });
+
+    try {
+        // Validate voting weight
+        if (typeof votingWeight !== 'number' || votingWeight < 0.01 || votingWeight > 100) {
+            logger.warn('Invalid voting weight', {
+                user: admin,
+                action: 'addToPending',
+                error: 'Invalid voting weight',
+                data: { votingWeight }
+            });
+            return res.status(400).json({ error: 'Voting weight must be between 0.01 and 100' });
+        }
+
+        const result = await trail.addToPendingVotes({ account, permlink, votingWeight });
+        
+        logger.info('Successfully added post to pending votes', {
+            user: admin,
+            action: 'addToPending',
+            data: { account, permlink, votingWeight }
+        });
+
+        res.json(result);
+    } catch (err) {
+        logger.error('Failed to add post to pending votes', {
+            user: admin,
+            action: 'addToPending',
+            error: err,
+            data: { account, permlink, votingWeight }
+        });
+
+        res.status(err.message === 'Post is already in pending votes' ? 400 : 500)
+           .json({ error: err.message });
+    }
+});
 
 router.get("/getSettings", async function (req, res, next) {
     try {
-        res.json(await trail.getSettings());
+        logger.info('Fetching trail settings');
+        const settings = await trail.getSettings();
+        logger.info('Successfully fetched trail settings', { data: settings });
+        res.json(settings);
     } catch (err) {
-        console.error(`Error while getting settings `, err.message);
+        logger.error('Failed to fetch trail settings', { error: err });
         next(err);
     }
 });
@@ -50,6 +98,42 @@ router.get("/getPendings", async function (req, res, next) {
     } catch (err) {
         console.error(`Error while getting all pendings list `, err.message);
         next(err);
+    }
+});
+
+// Admin routes
+router.get("/searchPosts", verifyToken, verifyAdmin, async function (req, res, next) {
+    try {
+        // TODO: Add admin role check
+        if (!req.query.username) {
+            res.status(400).json({ error: 'Username is required' });
+            return;
+        }
+        const posts = await trail.searchUserPosts(req.query.username);
+        res.json(posts);
+    } catch (err) {
+        console.error(`Error searching posts:`, err.message);
+        next(err);
+    }
+});
+
+router.post("/addToPending", verifyToken, verifyAdmin, async function (req, res, next) {
+    try {
+        // TODO: Add admin role check
+        const { account, permlink, votingWeight } = req.body;
+        if (!account || !permlink || !votingWeight) {
+            res.status(400).json({ error: 'Missing required fields' });
+            return;
+        }
+        const result = await trail.addToPendingVotes(req.body);
+        res.json(result);
+    } catch (err) {
+        console.error(`Error adding to pending:`, err.message);
+        if (err.message === 'Post is already in pending votes') {
+            res.status(400).json({ error: err.message });
+        } else {
+            next(err);
+        }
     }
 });
 

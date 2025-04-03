@@ -1,0 +1,4 @@
+{"action":"login","data":{"message":"login_y7dn2kjenej"},"level":"info","message":"Login attempt","timestamp":"2025-04-03T20:21:42.206Z","user":"ericet"}
+{"action":"login","data":{"isAdmin":true},"level":"info","message":"Login successful","timestamp":"2025-04-03T20:21:43.085Z","user":"ericet"}
+{"action":"verifyToken","data":{"path":"/getUpvotes"},"level":"info","message":"Token verification attempt","timestamp":"2025-04-03T20:21:43.141Z"}
+{"action":"verifyToken","data":{"isAdmin":true,"path":"/getUpvotes"},"level":"info","message":"Token verified successfully","timestamp":"2025-04-03T20:21:43.145Z","user":"ericet"}

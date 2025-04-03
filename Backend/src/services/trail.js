@@ -95,6 +95,50 @@ async function getScore(account) {
     return result[0];
 }
 
+async function searchUserPosts(username) {
+    // Get posts from the last 7 days using Steem API
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const posts = await steem.api.getDiscussionsByAuthorBeforeDateAsync(
+        username,
+        null, // Start permlink (null for latest)
+        sevenDaysAgo.toISOString().split('.')[0],
+        10 // Limit to 10 posts
+    );
+
+    // Filter out posts older than 7 days and format the response
+    return posts
+        .filter(post => new Date(post.created + 'Z') > sevenDaysAgo)
+        .map(post => ({
+            title: post.title,
+            permlink: post.permlink,
+            created: post.created
+        }));
+}
+
+async function addToPendingVotes(data) {
+    const { account, permlink, votingWeight } = data;
+    
+    // Check if already in pending votes
+    const existing = await db.query(
+        'SELECT * FROM pending_votes WHERE account = ? AND permlink = ?',
+        [account, permlink]
+    );
+
+    if (existing.length > 0) {
+        throw new Error('Post is already in pending votes');
+    }
+
+    // Add to pending votes
+    await db.query(
+        'INSERT INTO pending_votes (account, permlink, voting_weight, date_time) VALUES (?, ?, ?, NOW())',
+        [account, permlink, votingWeight]
+    );
+
+    return { success: true };
+}
+
 module.exports = {
     getSettings,
     getAllVoteList,
@@ -106,5 +150,7 @@ module.exports = {
     report,
     checkIfReported,
     getAccountUpvotes,
-    getScore
+    getScore,
+    searchUserPosts,
+    addToPendingVotes
 };
