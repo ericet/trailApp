@@ -117,26 +117,6 @@ router.get("/searchPosts", verifyToken, verifyAdmin, async function (req, res, n
     }
 });
 
-router.post("/addToPending", verifyToken, verifyAdmin, async function (req, res, next) {
-    try {
-        // TODO: Add admin role check
-        const { account, permlink, votingWeight } = req.body;
-        if (!account || !permlink || !votingWeight) {
-            res.status(400).json({ error: 'Missing required fields' });
-            return;
-        }
-        const result = await trail.addToPendingVotes(req.body);
-        res.json(result);
-    } catch (err) {
-        console.error(`Error adding to pending:`, err.message);
-        if (err.message === 'Post is already in pending votes') {
-            res.status(400).json({ error: err.message });
-        } else {
-            next(err);
-        }
-    }
-});
-
 router.get("/getScore", async function (req, res, next) {
     try {
         const account = req.query.account;

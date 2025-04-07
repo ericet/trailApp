@@ -1,5 +1,11 @@
 <template>
   <div v-if="currentUser">
+    <PopupNotification 
+      :show="!!popupNotification" 
+      :type="popupNotification?.type || 'success'" 
+      :message="popupNotification?.message || ''"
+      @close="popupNotification = null"
+    />
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Your Dashboard</h1>
       <p class="mt-2 text-gray-600 dark:text-gray-400">Welcome back, {{ currentUser.username }}!</p>
@@ -16,9 +22,10 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-              <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
               </svg>
             </div>
             <div class="ml-4">
@@ -30,9 +37,10 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900">
-              <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div class="ml-4">
@@ -44,9 +52,10 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-              <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
             <div class="ml-4">
@@ -63,8 +72,8 @@
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Monthly Upvotes Received</h2>
             <div class="flex items-center space-x-2">
-              <input type="month" v-model="selectedMonth" @change="fetchUpvotes" 
-                     class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <input type="month" v-model="selectedMonth" @change="fetchUpvotes"
+                class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             </div>
           </div>
           <div v-if="upvotes.length === 0" class="text-gray-500 dark:text-gray-400 py-4">
@@ -76,13 +85,13 @@
                 Total upvotes received this month: {{ upvotes.length }}
               </p>
             </div>
-            <div v-for="vote in sortedUpvotes" :key="vote.id" 
-                 class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+            <div v-for="vote in sortedUpvotes" :key="vote.id"
+              class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
               <div class="flex justify-between items-start">
                 <div>
-                  <a :href="'https://steemcn.xyz/@' + vote.voter + '/' + vote.permlink" target="_blank" 
-                     class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                     {{ postTitles[`${vote.voter}/${vote.permlink}`] || 'Loading...' }}
+                  <a :href="'https://steemcn.xyz/@' + vote.voter + '/' + vote.permlink" target="_blank"
+                    class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                    {{ postTitles[`${vote.voter}/${vote.permlink}`] || 'Loading...' }}
                   </a>
                   <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     Vote Received: {{ vote.voting_weight / 100 }}%
@@ -104,20 +113,38 @@
           <div v-if="posts.length === 0" class="text-gray-500 dark:text-gray-400">
             No recent posts found.
           </div>
-          <div v-else class="space-y-4">
-            <div v-for="post in posts" :key="post.url" 
-                 class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-              <a :href="'https://steemcn.xyz' + post.url" target="_blank" 
-                 class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
-                {{ post.title }}
-              </a>
+          <div class="space-y-4">
+            <div v-for="post in posts" :key="post.url"
+              :class="['p-4 border rounded-lg', post.hasVoted ? 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-700' : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700']">
+              <div class="flex justify-between items-start">
+                <a :href="'https://steemcn.xyz' + post.url" target="_blank"
+                  class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                  {{ post.title }}
+                </a>
+                <button v-if="post.hasVoted" @click="reportMissedVote(post)"
+                  class="px-3 py-1 text-sm text-red-600 border border-red-600 rounded hover:bg-red-50 dark:hover:bg-red-900/20 relative">
+                  <template v-if="loadingPost === post.url">
+                    <svg class="animate-spin h-5 w-5 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  </template>
+                  <span v-else>Report Miss Vote</span>
+                </button>
+              </div>
               <div class="mt-2 flex justify-between items-center text-sm">
                 <span class="text-gray-500 dark:text-gray-400">
                   {{ formatDate(post.timestamp) }}
                 </span>
-                <div class="flex items-center text-gray-500 dark:text-gray-400">
-                  <span class="mr-2">{{ post.votes }} Rewards</span>
-                  <span>${{ post.payout}}</span>
+                <div class="flex items-center space-x-2">
+                  <span
+                    :class="[post.hasVoted ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400']">
+                    {{ post.votes }} Rewards
+                  </span>
+                  <span
+                    :class="[post.hasVoted ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400']">
+                    ${{ post.payout }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -131,15 +158,19 @@
 <script>
 import { mapGetters } from 'vuex';
 import steem from 'steem';
+import PopupNotification from '../components/PopupNotification.vue';
 import axios from 'axios';
 
 export default {
   name: 'DashboardView',
+  components: {
+    PopupNotification
+  },
   data() {
     return {
-      upvotes: [],
-      posts: [],
-      postTitles: {},  
+      upvotes: [], // Upvotes for selected month
+      posts: [], // Last 7 days posts
+      postTitles: {},
       selectedMonth: new Date().toISOString().split('T')[0].slice(0, 7),
       totalPosts: 0,
       totalEarnings: 0,
@@ -147,7 +178,10 @@ export default {
       score: 0,
       incentive: '',
       effectiveSP: 0,
-      loading: true
+      loading: true,
+      loadingPost: null,
+      popupNotification: null,
+      lastFetchedMonth: null // Track last fetched month to avoid unnecessary updates
     }
   },
   computed: {
@@ -162,9 +196,90 @@ export default {
       if (!newVal) {
         this.$router.push({ name: 'home' });
       }
+    },
+    selectedMonth: {
+      immediate: true,
+      handler(newMonth) {
+        if (newMonth !== this.lastFetchedMonth) {
+          this.lastFetchedMonth = newMonth;
+          this.fetchUpvotes();
+        }
+      }
     }
   },
   methods: {
+    hasVoted(votes) {
+      for (let vote of votes) {
+        if (vote.voter === 'cn-trail') {
+          return true;
+        }
+      }
+      return false;
+    },
+
+    async reportMissedVote(post) {
+      if (this.loadingPost === post.url) return; // Prevent multiple simultaneous requests
+      
+      try {
+        this.loadingPost = post.url;
+        this.popupNotification = null;
+        const permlink = post.url.split('/').pop();
+        const response = await fetch(`${this.$store.state.api}/report`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.$store.state.token}`
+          },
+          body: JSON.stringify({
+            account: this.currentUser.username,
+            permlink: permlink,
+            sp: this.effectiveSP,
+            hasVoted: false,
+            date: new Date(post.timestamp).toISOString()
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.message === 'Too many connections') {
+          this.popupNotification = {
+            type: 'error',
+            message: 'Server is busy. Please try again in a few moments.'
+          };
+          return;
+        }
+        
+        // Display the API response message in popup
+        this.popupNotification = {
+          type: data.result === 'true' ? 'success' : 'error',
+          message: data.msg || (data.error === 'exist' ? 'This post has already been reported' : 'Unknown error')
+        };
+        
+        // Auto close popup after 3 seconds
+        setTimeout(() => {
+          this.popupNotification = null;
+        }, 3000);
+
+        if (data.result === 'true') {
+          // Only refresh upvotes if report was successful
+          await this.fetchUpvotes();
+        }
+      } catch (error) {
+        console.error('Error reporting missed vote:', error);
+        this.popupNotification = {
+          type: 'error',
+          message: 'Network error. Please try again later.'
+        };
+        
+        // Auto close popup after 3 seconds
+        setTimeout(() => {
+          this.popupNotification = null;
+        }, 3000);
+      } finally {
+        this.loadingPost = null;
+      }
+    },
+
     formatDate(timestamp) {
       return new Date(timestamp).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -194,7 +309,8 @@ export default {
     },
     async fetchUpvotes() {
       try {
-        const [year, month] = this.selectedMonth.split('-').map(Number);        
+        const [year, month] = this.selectedMonth.split('-').map(Number);
+        
         const response = await axios.get(`${this.$store.state.api}/getUpvotes`, {
           params: {
             year: year,
@@ -204,8 +320,9 @@ export default {
             'Authorization': `Bearer ${this.currentUser.token}`
           }
         });
+        
         this.upvotes = response.data;
-        await this.fetchPostTitles(); 
+        await this.fetchPostTitles();
       } catch (error) {
         console.error('Error fetching upvotes:', error);
       }
@@ -213,43 +330,54 @@ export default {
     async fetchUserHistory() {
       try {
         const username = this.currentUser.username;
-        
+
         // Fetch user's posts
         const posts = await steem.api.getDiscussionsByAuthorBeforeDateAsync(
           username,
           null,
           new Date().toISOString().split('.')[0],
-          10
+          50
         );
-        
+
         // Get timestamp for 7 days ago
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-        
+
+        // Process and filter posts to last 7 days
         this.posts = posts
           .map(post => {
             // Parse payout values, removing ' SBD' or ' STEEM' suffix
             const curatorPayout = parseFloat(post.curator_payout_value.split(' ')[0]) || 0;
             const totalPayout = parseFloat(post.total_payout_value.split(' ')[0]) || 0;
-            
+            const pendingPayout = parseFloat(post.pending_payout_value.split(' ')[0]) || 0;
+            const voted = this.hasVoted(post.active_votes);
             return {
               title: post.title,
               url: `/@${post.author}/${post.permlink}`,
               timestamp: new Date(post.created).getTime(),
               votes: post.net_votes,
-              payout: (curatorPayout + totalPayout).toFixed(2)
+              payout: pendingPayout > 0 ? pendingPayout : (curatorPayout + totalPayout).toFixed(2),
+              hasVoted: voted
             };
           })
           .filter(post => post.timestamp >= sevenDaysAgo.getTime());
-        
-        this.totalPosts = this.posts.length; // Use filtered posts
-        this.totalEarnings = this.posts.reduce((sum, post) => 
+
+        // Calculate totals from filtered posts
+        this.totalPosts = this.posts.length;
+        this.totalEarnings = this.posts.reduce((sum, post) =>
           sum + parseFloat(post.payout), 0
         ).toFixed(2);
 
         // Fetch followers count
         const followers = await steem.api.getFollowCountAsync(username);
         this.totalFollowers = followers.follower_count;
+
+        // If this is the initial load and we have posts, set the selected month to the current month
+        if (!this.lastFetchedMonth && this.posts.length > 0) {
+          const now = new Date();
+          this.selectedMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+          this.lastFetchedMonth = this.selectedMonth;
+        }
 
         this.loading = false;
       } catch (error) {
